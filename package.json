@@ -1,0 +1,42 @@
+{
+  "name": "konomigami-lib",
+  "version": "1.0.0",
+  "description": "The fold algebra · 7 base glyphs + 6 mutations + state algebra + bloom ↔ integer ↔ sequence + φ-coherence. v20.4 socket VI · 紙 KONOMIGAMI geometric fold language by Thomas Frumkin. Pure JS ES module · zero dependencies.",
+  "type": "module",
+  "main": "./index.mjs",
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "konomigami",
+    "kotoba",
+    "origami",
+    "fold",
+    "algebra",
+    "geometry",
+    "prime",
+    "primorial",
+    "phi",
+    "golden-ratio",
+    "fall-estate",
+    "sovereign",
+    "thomas-frumkin",
+    "sjgant80"
+  ],
+  "author": "Simon Gant · sjgant80-hub",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sjgant80-hub/konomigami-lib.git"
+  },
+  "homepage": "https://sjgant80-hub.github.io/konomigami-lib/",
+  "prime": 677,
+  "substrate": "Thomas Frumkin · 紙 KONOMIGAMI Geometric Fold Architecture",
+  "spec": "v20.4 §23 socket VI"
+}
