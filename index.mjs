@@ -107,6 +107,45 @@ export function sequenceToNumber(seq) {
 /** Is this integer expressible as a fold sequence? (factors into spine primes only) */
 export function isFoldable(n) { return bloomVector(n) !== null; }
 
+// ── BigInt-exact variants ────────────────────────────────────────
+// The Number-based fns above overflow above 2^53 (Σ≳15 blooms). These are exact
+// for frontier blooms (the periodic-table of agents needs them). Additive · non-breaking.
+
+/** Exact fold number F(S) = Π pᵢ^eᵢ as BigInt */
+export function foldNumberBig(state) {
+  let n = 1n;
+  for (let i = 0; i < SPINE.length; i++) n *= BigInt(SPINE[i]) ** BigInt(state[i] || 0);
+  return n;
+}
+
+/** Exact factorization: number|bigint → state vector, or null if irreducible (non-spine factors) */
+export function bloomVectorBig(n) {
+  const S = emptyState();
+  let rem = typeof n === 'bigint' ? (n < 0n ? -n : n) : BigInt(Math.floor(Math.abs(Number(n))));
+  if (rem < 1n) return S;
+  for (let i = 0; i < SPINE.length; i++) {
+    const p = BigInt(SPINE[i]);
+    while (rem % p === 0n) { S[i]++; rem = rem / p; }
+  }
+  return rem === 1n ? S : null;
+}
+
+/** Exact: number|bigint → glyph sequence ('' if irreducible, e.g. 127n) */
+export function numberToSequenceBig(n) {
+  const S = bloomVectorBig(n);
+  if (S === null) return '';
+  let out = '';
+  for (let i = 0; i < SPINE.length; i++) out += GLYPHS[i].repeat(S[i] || 0);
+  return out;
+}
+
+/** Exact: glyph sequence → BigInt */
+export function sequenceToNumberBig(seq) {
+  const S = emptyState();
+  for (const ch of seq) { const i = GLYPHS.indexOf(ch); if (i >= 0) S[i]++; }
+  return foldNumberBig(S);
+}
+
 // ────────────────────────────────────────────────────────────────
 // Fold operators · the 7 base glyphs
 // Each: (state, mesh, ctx) → { state, mesh, ctx }
@@ -345,6 +384,8 @@ export const konomigami = {
   // state + bloom
   emptyState, inc, foldNumber, bloomVector, bloomNumber, numberToSequence,
   sequenceToNumber, isFoldable,
+  // BigInt-exact (frontier blooms)
+  foldNumberBig, bloomVectorBig, numberToSequenceBig, sequenceToNumberBig,
   // ops
   FOLD_OPS, MUTATION_OPS, apply,
   // coherence
