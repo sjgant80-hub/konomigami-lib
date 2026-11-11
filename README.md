@@ -189,4 +189,4 @@ Add a glyph: append to `FOLD_OPS` keyed by the glyph character; return `{ S, M, 
 - **v20.4 §23** — the seed socket that formalises this as runeword VI on the v20 mastery seal.
 - The fall* estate — same patterns, same cascade, same mesh.
 
-⚒ Part of the [fall* estate](https://github.com/sjgant80-hub) · prime 677 · ◊·κ=1
+⚒ Part of the [fall* estate](https://github.com/sjgant80-hub)
